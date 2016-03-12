@@ -2,6 +2,9 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+// Add Char16.h before nsXPCOMGlue.h to avoid char16_t redefining error on MSVC 2013
+#include "mozilla/Char16.h"
+
 #include "nsXPCOMGlue.h"
 #include "nsINIParser.h"
 #include "nsXPCOMPrivate.h" // for XP MAXPATHLEN
