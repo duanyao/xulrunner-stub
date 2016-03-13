@@ -161,6 +161,7 @@ main(int argc, char **argv)
   char iniPath[MAXPATHLEN];
   char tmpPath[MAXPATHLEN];
   char greDir[MAXPATHLEN];
+  char portableProfileDir[MAXPATHLEN];
   bool greFound = false;
 
 #if defined(XP_MACOSX)
@@ -267,6 +268,9 @@ main(int argc, char **argv)
            iniPath);
 
   greFound = FolderExists(greDir);
+
+  snprintf(portableProfileDir, sizeof(portableProfileDir),
+	  "%sPortableProfile", iniPath);
 
 #ifdef XP_UNIX
   if (greFound) {
@@ -439,7 +443,29 @@ main(int argc, char **argv)
 #endif
     }
 
+    bool hasProfileArg = false;
+    for (int i = 1; i < argc; i++) {
+      if (strcmp(argv[i], "-profile") == 0) {
+        hasProfileArg = true;
+        break;
+      }
+    }
+    char** oldArgv = argv;
+    if (!hasProfileArg && FolderExists(portableProfileDir)) {
+      int oldArgc = argc;
+      argc = oldArgc + 2;
+      argv = new char*[argc + 1];
+      memcpy(argv, oldArgv, sizeof(char*) * oldArgc);
+      argv[argc - 2] = "-profile";
+      argv[argc - 1] = portableProfileDir;
+      argv[argc] = 0;
+    }
+
     retval = XRE_main(argc, argv, appData, 0);
+
+    if (oldArgv != argv) {
+      delete argv;
+    }
   }
 
   NS_LogTerm();
