@@ -261,13 +261,18 @@ main(int argc, char **argv)
 
   *(++lastSlash) = '\0';
 
-  // On Linux/Win, look for XULRunner in appdir/xulrunner
+  // On Linux/Win, look for XULRunner in appdir/xulrunner and then in appdir/
 
   snprintf(greDir, sizeof(greDir),
            "%sxulrunner" XPCOM_FILE_PATH_SEPARATOR XPCOM_DLL,
            iniPath);
 
   greFound = FolderExists(greDir);
+
+  if (!greFound) {
+    snprintf(greDir, sizeof(greDir), "%s" XPCOM_DLL, iniPath);
+    greFound = FolderExists(greDir);
+  }
 
   snprintf(portableProfileDir, sizeof(portableProfileDir),
 	  "%sPortableProfile", iniPath);
