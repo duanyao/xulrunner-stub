@@ -67,6 +67,7 @@
       <AdditionalDependencies>mozcrt.lib;xpcomglue.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ManifestFile>$(SolutionDir)..\src\stub\xulrunner-stub.exe.manifest</ManifestFile>
       <EntryPointSymbol>wmainCRTStartup</EntryPointSymbol>
+      <LargeAddressAware>true</LargeAddressAware>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -90,6 +91,7 @@
       <AdditionalDependencies>mozcrt.lib;xpcomglue.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ManifestFile>$(SolutionDir)..\src\stub\xulrunner-stub.exe.manifest</ManifestFile>
       <EntryPointSymbol>wmainCRTStartup</EntryPointSymbol>
+      <LargeAddressAware>true</LargeAddressAware>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
