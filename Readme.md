@@ -7,10 +7,11 @@ You can download them from the [project page](https://duanyao.github.io/xulrunne
 
 ## Build for Win32
 
-0. Install MS Visual Studio 2013 (Express for Desktop or Community Editions are OK).
-1. Clone this project.
+0. Install MS Visual Studio (Express for Desktop or Community Editions are OK). Version of your VS should match the one with which Firefox SDK was built.
+  E.g. VS 2013 for FF 42-47, and VS 2015 for FF 52.
+1. Clone this project, and checkout a tag/branch. Current trees build with VS 2015 and FF 52.
 2. Download Firefox SDK. e.g. 
-http://ftp.mozilla.org/pub/firefox/nightly/latest-mozilla-aurora/firefox-47.0a2.en-US.win32.sdk.zip or http://archive.mozilla.org/pub/firefox/releases/45.0/win32/en-US/sdk/firefox-45.0.sdk.zip .
+http://ftp.mozilla.org/pub/firefox/nightly/latest-mozilla-aurora/firefox-47.0a2.en-US.win32.sdk.zip or https://ftp.mozilla.org/pub/firefox/releases/52.6.0esr/firefox-52.6.0esr.win32.sdk.zip .
 Unzip it in the project directory, and make sure the directory name is `firefox-sdk`.
 
 3. Open `msvc/xulrunner-stub.sln` with Visual Studio, and build in release mode (debug mode doesn't work currently).
@@ -23,15 +24,15 @@ You may layout your xulrunner app like this:
 <your_app_dir>
   xulrunner/
   mozglue.dll
-  msvcr120.dll
-  msvcp120.dll
+  msvcrXXX.dll
+  msvcpXXX.dll
   xulrunner-stub.exe
   application.ini
   ...
 ```
 Notes
 * You may copy firefox's files (`xul.dll`, `omni.ja` etc.) to `xulrunner/` to act as xulrunner.
-* I'm not able to remove the stub's hard dependency on `mozglue.dll`, `msvcr120.dll` and `msvcp120.dll`, so you have to copy them from firefox to the same directory of the stub.
+* I'm not able to remove the stub's hard dependency on `mozglue.dll`, `msvcrXXX.dll` and `msvcpXXX.dll`, so you have to copy them from firefox to the same directory of the stub.
 
 Alternatively, you may "flatten" `xulrunner/` into `<your_app_dir>`:
 
@@ -41,14 +42,14 @@ Alternatively, you may "flatten" `xulrunner/` into `<your_app_dir>`:
   omni.ja
   ...
   mozglue.dll
-  msvcr120.dll
-  msvcp120.dll
+  msvcrXXX.dll
+  msvcpXXX.dll
   xulrunner-stub.exe
   application.ini
   ...
 ```
 
-In this way, you don't have to duplicate `mozglue.dll`, `msvcr120.dll` and `msvcp120.dll`.
+In this way, you don't have to duplicate `mozglue.dll`, `msvcrXXX.dll` and `msvcpXXX.dll`.
 "Flatten xulrunner" is a new feature introduced by commit `5bb9c7f4addab9b745b9186da4dcade8720378c8` .
 
 ## Build for other platforms
